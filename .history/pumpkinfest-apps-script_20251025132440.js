@@ -379,7 +379,6 @@ function updateRSVP(rsvpData) {
     }
     
     // Update the row
-    if (emailIndex >= 0) sheet.getRange(rowToUpdate, emailIndex + 1).setValue(rsvpData.email || '');
     if (attendanceIndex >= 0) sheet.getRange(rowToUpdate, attendanceIndex + 1).setValue(rsvpData.attendance || '');
     if (needPumpkinIndex >= 0) sheet.getRange(rowToUpdate, needPumpkinIndex + 1).setValue(rsvpData.needPumpkin || '');
     if (bringingIndex >= 0) sheet.getRange(rowToUpdate, bringingIndex + 1).setValue(rsvpData.bringing || '');

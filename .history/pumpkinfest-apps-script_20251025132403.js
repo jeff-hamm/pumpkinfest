@@ -290,7 +290,7 @@ function addRSVP(rsvpData) {
     
     if (lastRow === 0) {
       // Create headers if sheet is empty
-      headers = ['Name', 'Email', 'Attendance', 'Need Pumpkin', 'Bringing', 'Pumpkin Patch', 'Patch Dates', 'Timestamp'];
+      headers = ['Name', 'Attendance', 'Need Pumpkin', 'Bringing', 'Pumpkin Patch', 'Patch Dates', 'Timestamp'];
       sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
     } else {
       headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
@@ -300,7 +300,6 @@ function addRSVP(rsvpData) {
     
     // Find column indices
     const nameIndex = findColumnIndex(headerMap, ['name', 'guest', 'person']);
-    const emailIndex = findColumnIndex(headerMap, ['email', 'e-mail', 'mail', 'contact']);
     const attendanceIndex = findColumnIndex(headerMap, ['attendance', 'coming', 'status', 'rsvp']);
     const needPumpkinIndex = findColumnIndex(headerMap, ['need pumpkin', 'needpumpkin', 'pumpkin']);
     const bringingIndex = findColumnIndex(headerMap, ['bringing', 'notes', 'comment', 'details']);
@@ -312,7 +311,6 @@ function addRSVP(rsvpData) {
     const newRow = new Array(headers.length).fill('');
     
     if (nameIndex >= 0) newRow[nameIndex] = rsvpData.name || '';
-    if (emailIndex >= 0) newRow[emailIndex] = rsvpData.email || '';
     if (attendanceIndex >= 0) newRow[attendanceIndex] = rsvpData.attendance || '';
     if (needPumpkinIndex >= 0) newRow[needPumpkinIndex] = rsvpData.needPumpkin || '';
     if (bringingIndex >= 0) newRow[bringingIndex] = rsvpData.bringing || '';
@@ -357,7 +355,6 @@ function updateRSVP(rsvpData) {
     
     // Find column indices
     const nameIndex = findColumnIndex(headers, ['name', 'guest', 'person']);
-    const emailIndex = findColumnIndex(headers, ['email', 'e-mail', 'mail', 'contact']);
     const attendanceIndex = findColumnIndex(headers, ['attendance', 'coming', 'status', 'rsvp']);
     const needPumpkinIndex = findColumnIndex(headers, ['need pumpkin', 'needpumpkin', 'pumpkin']);
     const bringingIndex = findColumnIndex(headers, ['bringing', 'notes', 'comment', 'details']);
@@ -379,7 +376,6 @@ function updateRSVP(rsvpData) {
     }
     
     // Update the row
-    if (emailIndex >= 0) sheet.getRange(rowToUpdate, emailIndex + 1).setValue(rsvpData.email || '');
     if (attendanceIndex >= 0) sheet.getRange(rowToUpdate, attendanceIndex + 1).setValue(rsvpData.attendance || '');
     if (needPumpkinIndex >= 0) sheet.getRange(rowToUpdate, needPumpkinIndex + 1).setValue(rsvpData.needPumpkin || '');
     if (bringingIndex >= 0) sheet.getRange(rowToUpdate, bringingIndex + 1).setValue(rsvpData.bringing || '');

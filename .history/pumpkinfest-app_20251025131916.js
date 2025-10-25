@@ -1,7 +1,7 @@
 /**
- * Pumpkinfest 2025 RSVP System - v2025-10-25-3
+ * Pumpkinfest 2025 RSVP System - v2025-10-25-2
  * Based on the Google Sheets Checklist architecture
- * Added email field and enhanced refresh functionality
+ * Cache-busting update to fix browser caching issues
  */
 
 class PumpkinfestRSVP {
@@ -353,8 +353,6 @@ class PumpkinfestRSVP {
                 // Submit via Apps Script
                 await this.submitRSVP(rsvpData, isUpdate);
                 await this.loadFromSheet();
-                this.renderRSVPGrid();
-                this.populateNameDropdown();
                 this.updateSyncStatus(isUpdate ? '✅ RSVP Updated' : '✅ RSVP Submitted');
                 this.showRSVPLoading(false);
                 this.resetForm();
@@ -375,7 +373,6 @@ class PumpkinfestRSVP {
                 }
                 
                 this.renderRSVPGrid();
-                this.populateNameDropdown();
                 this.updateSyncStatus('✅ RSVP Added Locally');
                 this.showRSVPLoading(false);
                 this.resetForm();
@@ -516,7 +513,6 @@ class PumpkinfestRSVP {
 
     clearForm() {
         // Clear all form fields except the name dropdown
-        document.getElementById('guest-email').value = '';
         document.getElementById('attendance').value = '';
         document.getElementById('need-pumpkin').value = '';
         document.getElementById('bringing').value = '';
