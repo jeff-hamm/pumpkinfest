@@ -1,7 +1,7 @@
 /**
- * Pumpkinfest 2025 RSVP System - v2025-10-25-5
+ * Pumpkinfest 2025 RSVP System - v2025-10-25-4
  * Based on the Google Sheets Checklist architecture
- * Increased file upload limit to 10MB for better photo support
+ * Added gallery upload functionality and email field support
  */
 
 class PumpkinfestRSVP {
@@ -890,9 +890,9 @@ class PumpkinfestRSVP {
             return;
         }
 
-        // Validate file size (10MB)
-        if (file.size > 10 * 1024 * 1024) {
-            alert('File size must be less than 10MB.');
+        // Validate file size (5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('File size must be less than 5MB.');
             return;
         }
 
