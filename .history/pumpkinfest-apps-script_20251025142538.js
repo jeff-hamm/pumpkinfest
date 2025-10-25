@@ -23,28 +23,15 @@
    */
   function doPost(e) {
     try {
-      let data;
-      let action;
-      
-      // Check if this is FormData (from photo upload) or JSON
-      if (e.parameter && e.parameter.action) {
-        // FormData request - parameters come in e.parameter
-        data = e.parameter;
-        action = data.action;
-      } else if (e.postData && e.postData.contents) {
-        // JSON request - data comes in e.postData.contents
-        data = JSON.parse(e.postData.contents);
-        action = data.action;
-      } else {
-        throw new Error('No valid data found in request');
-      }
+      const data = JSON.parse(e.postData.contents);
+      const action = data.action;
       
       switch (action) {
         case 'getRSVPs':
           return createResponse(getRSVPs());
         
         case 'addRSVP':
-          return createResponse(addRSVP(data.rsvp || data));
+          return createResponse(addRSVP(data.rsvp));
         
         case 'uploadPhoto':
           return createResponse(uploadPhoto(data.filename, data.fileData, data.mimeType));
