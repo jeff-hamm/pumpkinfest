@@ -1,7 +1,7 @@
 /**
- * Pumpkinfest 2025 RSVP System - v2025-10-25-4
+ * Pumpkinfest 2025 RSVP System - v2025-10-25-3
  * Based on the Google Sheets Checklist architecture
- * Added gallery upload functionality and email field support
+ * Added email field and enhanced refresh functionality
  */
 
 class PumpkinfestRSVP {
@@ -870,135 +870,6 @@ class PumpkinfestRSVP {
             }
         } catch (error) {
             console.error('Photo upload error:', error);
-            throw error;
-        }
-    }
-
-    // Gallery Upload Methods
-    handleGalleryUploadClick(event) {
-        event.preventDefault();
-        document.getElementById('gallery-photo-upload').click();
-    }
-
-    handleGalleryPhotoSelect(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        // Validate file type
-        if (!file.type.startsWith('image/')) {
-            alert('Please select an image file (JPG, PNG, or GIF).');
-            return;
-        }
-
-        // Validate file size (5MB)
-        if (file.size > 5 * 1024 * 1024) {
-            alert('File size must be less than 5MB.');
-            return;
-        }
-
-        // Show preview
-        const reader = new FileReader();
-        const preview = document.getElementById('gallery-upload-preview');
-        const img = document.getElementById('gallery-preview-img');
-        
-        reader.onload = function(e) {
-            img.src = e.target.result;
-            preview.style.display = 'block';
-        };
-        reader.readAsDataURL(file);
-    }
-
-    async handleGalleryUploadSubmit(event) {
-        event.preventDefault();
-        
-        const fileInput = document.getElementById('gallery-photo-upload');
-        const file = fileInput.files[0];
-        
-        if (!file) {
-            alert('Please select a file first.');
-            return;
-        }
-
-        try {
-            // Show loading state
-            const submitBtn = document.getElementById('gallery-upload-submit');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Uploading...';
-            submitBtn.disabled = true;
-
-            // Upload to Google Drive
-            await this.uploadGalleryPhotoToDrive(file);
-            
-            // Success feedback
-            alert('Photo uploaded successfully! 🎃');
-            
-            // Reset the form
-            this.handleGalleryUploadCancel(event);
-            
-            // Refresh the gallery
-            setTimeout(() => this.loadGalleryImages(), 2000);
-            
-        } catch (error) {
-            console.error('Gallery upload failed:', error);
-            alert('Failed to upload photo: ' + error.message);
-        } finally {
-            // Reset button state
-            const submitBtn = document.getElementById('gallery-upload-submit');
-            submitBtn.textContent = 'Upload';
-            submitBtn.disabled = false;
-        }
-    }
-
-    handleGalleryUploadCancel(event) {
-        event.preventDefault();
-        
-        // Clear file input
-        document.getElementById('gallery-photo-upload').value = '';
-        
-        // Hide preview
-        document.getElementById('gallery-upload-preview').style.display = 'none';
-        document.getElementById('gallery-preview-img').src = '';
-    }
-
-    async uploadGalleryPhotoToDrive(file) {
-        // Generate a unique filename for gallery photos
-        const timestamp = new Date().getTime();
-        const extension = file.name.split('.').pop();
-        const filename = `gallery_photo_${timestamp}.${extension}`;
-
-        try {
-            // Convert file to base64 for Apps Script
-            const base64Data = await this.fileToBase64(file);
-            
-            // Send to Apps Script for Drive upload
-            const response = await fetch(this.appsScriptUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    action: 'uploadPhoto',
-                    filename: filename,
-                    fileData: base64Data,
-                    mimeType: file.type
-                })
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
-            }
-
-            const result = await response.json();
-            
-            if (!result.success) {
-                throw new Error(result.error || 'Upload failed');
-            }
-
-            console.log('Gallery photo uploaded successfully:', result.data);
-            return result.data;
-            
-        } catch (error) {
-            console.error('Error uploading gallery photo:', error);
             throw error;
         }
     }

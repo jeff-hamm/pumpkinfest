@@ -1,7 +1,7 @@
 /**
- * Pumpkinfest 2025 RSVP System - v2025-10-25-4
+ * Pumpkinfest 2025 RSVP System - v2025-10-25-3
  * Based on the Google Sheets Checklist architecture
- * Added gallery upload functionality and email field support
+ * Added email field and enhanced refresh functionality
  */
 
 class PumpkinfestRSVP {
