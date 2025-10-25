@@ -434,6 +434,60 @@ class PumpkinfestRSVP {
         }
     }
 
+    renderRSVPs() {
+        const rsvpList = document.getElementById('rsvp-list');
+
+        if (this.rsvps.length === 0) {
+            rsvpList.innerHTML = '<p style="text-align: center; color: #ff69b4; padding: 20px;">No RSVPs yet. Be the first! 🎃</p>';
+            return;
+        }
+
+        // Group RSVPs by attendance
+        const groups = {
+            'Yes': [],
+            'Maybe': [],
+            'No': []
+        };
+
+        this.rsvps.forEach(rsvp => {
+            if (groups[rsvp.attendance]) {
+                groups[rsvp.attendance].push(rsvp);
+            }
+        });
+
+        let html = '';
+
+        // Render each group
+        Object.keys(groups).forEach(attendance => {
+            if (groups[attendance].length > 0) {
+                const emoji = attendance === 'Yes' ? '🎃' : attendance === 'Maybe' ? '🤔' : '😞';
+                html += `<div class="rsvp-group">`;
+                html += `<h4>${emoji} ${attendance} (${groups[attendance].length})</h4>`;
+                html += `<div class="rsvp-items">`;
+
+                groups[attendance].forEach(rsvp => {
+                    html += `<div class="rsvp-item">`;
+                    html += `<div class="rsvp-name">${this.escapeHtml(rsvp.name)}</div>`;
+                    
+                    if (rsvp.needPumpkin && rsvp.needPumpkin !== '') {
+                        const pumpkinEmoji = rsvp.needPumpkin === 'Yes' ? '🎃' : rsvp.needPumpkin === 'Maybe' ? '🤷' : '✋';
+                        html += `<div class="rsvp-detail">${pumpkinEmoji} Pumpkin: ${this.escapeHtml(rsvp.needPumpkin)}</div>`;
+                    }
+                    
+                    if (rsvp.bringing && rsvp.bringing.trim() !== '') {
+                        html += `<div class="rsvp-bringing">💭 ${this.escapeHtml(rsvp.bringing)}</div>`;
+                    }
+                    
+                    html += `</div>`;
+                });
+
+                html += `</div></div>`;
+            }
+        });
+
+        rsvpList.innerHTML = html;
+    }
+
     populateNameDropdown() {
         const nameSelect = document.getElementById('guest-name-select');
         

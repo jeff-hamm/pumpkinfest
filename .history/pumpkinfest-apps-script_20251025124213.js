@@ -331,68 +331,6 @@ function addRSVP(rsvpData) {
 }
 
 /**
- * Update an existing RSVP
- */
-function updateRSVP(rsvpData) {
-  try {
-    const spreadsheet = SpreadsheetApp.openById(SHEET_ID);
-    if (!spreadsheet) {
-      throw new Error(`Cannot open spreadsheet with ID: ${SHEET_ID}`);
-    }
-    
-    const sheet = getSheetByGidOrName(spreadsheet, GID, SHEET_NAME);
-    const data = sheet.getDataRange().getValues();
-    
-    if (data.length <= 1) {
-      throw new Error('No RSVPs found to update');
-    }
-    
-    const headers = data[0].map(h => h.toString().toLowerCase().trim());
-    
-    // Find column indices
-    const nameIndex = findColumnIndex(headers, ['name', 'guest', 'person']);
-    const attendanceIndex = findColumnIndex(headers, ['attendance', 'coming', 'status', 'rsvp']);
-    const needPumpkinIndex = findColumnIndex(headers, ['need pumpkin', 'needpumpkin', 'pumpkin']);
-    const bringingIndex = findColumnIndex(headers, ['bringing', 'notes', 'comment', 'details']);
-    const pumpkinPatchIndex = findColumnIndex(headers, ['pumpkin patch', 'pumpkinpatch', 'patch']);
-    const patchDatesIndex = findColumnIndex(headers, ['patch dates', 'patchdates', 'dates', 'available dates']);
-    const timestampIndex = findColumnIndex(headers, ['timestamp', 'date', 'submitted', 'created']);
-    
-    // Find the row to update
-    let rowToUpdate = -1;
-    for (let i = 1; i < data.length; i++) {
-      if (data[i][nameIndex] && data[i][nameIndex].toString().trim() === rsvpData.name) {
-        rowToUpdate = i + 1; // +1 because sheet rows are 1-indexed
-        break;
-      }
-    }
-    
-    if (rowToUpdate === -1) {
-      throw new Error(`RSVP not found for name: ${rsvpData.name}`);
-    }
-    
-    // Update the row
-    if (attendanceIndex >= 0) sheet.getRange(rowToUpdate, attendanceIndex + 1).setValue(rsvpData.attendance || '');
-    if (needPumpkinIndex >= 0) sheet.getRange(rowToUpdate, needPumpkinIndex + 1).setValue(rsvpData.needPumpkin || '');
-    if (bringingIndex >= 0) sheet.getRange(rowToUpdate, bringingIndex + 1).setValue(rsvpData.bringing || '');
-    if (pumpkinPatchIndex >= 0) sheet.getRange(rowToUpdate, pumpkinPatchIndex + 1).setValue(rsvpData.pumpkinPatch || '');
-    if (patchDatesIndex >= 0) sheet.getRange(rowToUpdate, patchDatesIndex + 1).setValue(rsvpData.patchDates || '');
-    if (timestampIndex >= 0) sheet.getRange(rowToUpdate, timestampIndex + 1).setValue(new Date(rsvpData.timestamp || new Date()));
-    
-    return {
-      success: true,
-      rsvpId: `row-${rowToUpdate}`,
-      rowIndex: rowToUpdate,
-      action: 'updated'
-    };
-    
-  } catch (error) {
-    console.error('Error in updateRSVP:', error);
-    throw new Error(`Failed to update RSVP: ${error.message}`);
-  }
-}
-
-/**
  * Get the last modified timestamp of the sheet
  */
 function getLastModified() {

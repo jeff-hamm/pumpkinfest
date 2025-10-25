@@ -61,14 +61,6 @@ class PumpkinfestRSVP {
             tab.addEventListener('click', (e) => this.handleFilterChange(e));
         });
 
-        // Initialize name input state (hidden and not required by default)
-        const nameInput = document.getElementById('guest-name');
-        if (nameInput) {
-            nameInput.style.display = 'none';
-            nameInput.required = false;
-            nameInput.value = '';
-        }
-
         // Load initial data
         this.loadRSVPs();
         this.loadGalleryImages();
@@ -87,6 +79,7 @@ class PumpkinfestRSVP {
         } else {
             this.loadSampleData();
         }
+        this.renderRSVPs();
         this.renderRSVPGrid();
         this.populateNameDropdown();
     }
@@ -344,17 +337,13 @@ class PumpkinfestRSVP {
 
         try {
             if (this.useAppsScript) {
-                // Check if this is an update to an existing RSVP
-                const existingRSVP = this.rsvps.find(rsvp => rsvp.name === guestName);
-                const isUpdate = !!existingRSVP;
-                
                 // Submit via Apps Script
-                await this.submitRSVP(rsvpData, isUpdate);
+                await this.submitRSVP(rsvpData);
                 await this.loadFromSheet();
-                this.updateSyncStatus(isUpdate ? '✅ RSVP Updated' : '✅ RSVP Submitted');
+                this.updateSyncStatus('✅ RSVP Submitted');
                 this.showRSVPLoading(false);
                 this.resetForm();
-                this.hideFormAndShowSuccess();
+                alert('🎃 Thanks for your RSVP! See you at the party!');
             } else {
                 // Add locally for demo
                 // Check if this is an update to existing RSVP
@@ -370,11 +359,11 @@ class PumpkinfestRSVP {
                     this.rsvps.push(rsvpData);
                 }
                 
+                this.renderRSVPs();
                 this.renderRSVPGrid();
                 this.updateSyncStatus('✅ RSVP Added Locally');
                 this.showRSVPLoading(false);
                 this.resetForm();
-                this.hideFormAndShowSuccess();
                 
                 setTimeout(() => {
                     const sheetUrl = `https://docs.google.com/spreadsheets/d/${this.sheetId}/edit#gid=${this.gid}`;
@@ -390,7 +379,7 @@ class PumpkinfestRSVP {
         }
     }
 
-    async submitRSVP(rsvpData, isUpdate = false) {
+    async submitRSVP(rsvpData) {
         if (!this.useAppsScript) {
             console.warn('Apps Script not configured, cannot submit RSVP');
             return;
@@ -398,19 +387,18 @@ class PumpkinfestRSVP {
 
         try {
             const params = new URLSearchParams({
-                action: isUpdate ? 'updateRSVP' : 'addRSVP',
+                action: 'addRSVP',
                 name: rsvpData.name,
                 attendance: rsvpData.attendance,
                 needPumpkin: rsvpData.needPumpkin,
                 bringing: rsvpData.bringing,
                 pumpkinPatch: rsvpData.pumpkinPatch,
                 patchDates: rsvpData.patchDates,
-                timestamp: rsvpData.timestamp,
-                isUpdate: isUpdate
+                timestamp: rsvpData.timestamp
             });
 
             const url = `${this.appsScriptUrl}?${params.toString()}`;
-            console.log(`Sending RSVP ${isUpdate ? 'update' : 'submission'} request to:`, url);
+            console.log('Sending RSVP request to:', url);
 
             const response = await fetch(url, {
                 method: 'GET'
@@ -432,6 +420,60 @@ class PumpkinfestRSVP {
             console.error('Error in submitRSVP:', error);
             throw error;
         }
+    }
+
+    renderRSVPs() {
+        const rsvpList = document.getElementById('rsvp-list');
+
+        if (this.rsvps.length === 0) {
+            rsvpList.innerHTML = '<p style="text-align: center; color: #ff69b4; padding: 20px;">No RSVPs yet. Be the first! 🎃</p>';
+            return;
+        }
+
+        // Group RSVPs by attendance
+        const groups = {
+            'Yes': [],
+            'Maybe': [],
+            'No': []
+        };
+
+        this.rsvps.forEach(rsvp => {
+            if (groups[rsvp.attendance]) {
+                groups[rsvp.attendance].push(rsvp);
+            }
+        });
+
+        let html = '';
+
+        // Render each group
+        Object.keys(groups).forEach(attendance => {
+            if (groups[attendance].length > 0) {
+                const emoji = attendance === 'Yes' ? '🎃' : attendance === 'Maybe' ? '🤔' : '😞';
+                html += `<div class="rsvp-group">`;
+                html += `<h4>${emoji} ${attendance} (${groups[attendance].length})</h4>`;
+                html += `<div class="rsvp-items">`;
+
+                groups[attendance].forEach(rsvp => {
+                    html += `<div class="rsvp-item">`;
+                    html += `<div class="rsvp-name">${this.escapeHtml(rsvp.name)}</div>`;
+                    
+                    if (rsvp.needPumpkin && rsvp.needPumpkin !== '') {
+                        const pumpkinEmoji = rsvp.needPumpkin === 'Yes' ? '🎃' : rsvp.needPumpkin === 'Maybe' ? '🤷' : '✋';
+                        html += `<div class="rsvp-detail">${pumpkinEmoji} Pumpkin: ${this.escapeHtml(rsvp.needPumpkin)}</div>`;
+                    }
+                    
+                    if (rsvp.bringing && rsvp.bringing.trim() !== '') {
+                        html += `<div class="rsvp-bringing">💭 ${this.escapeHtml(rsvp.bringing)}</div>`;
+                    }
+                    
+                    html += `</div>`;
+                });
+
+                html += `</div></div>`;
+            }
+        });
+
+        rsvpList.innerHTML = html;
     }
 
     populateNameDropdown() {
@@ -587,32 +629,19 @@ class PumpkinfestRSVP {
     }
 
     getFilteredRSVPs() {
-        let filtered;
         switch (this.currentFilter) {
             case 'Going':
-                filtered = this.rsvps.filter(rsvp => rsvp.attendance === 'Yes');
-                break;
+                return this.rsvps.filter(rsvp => rsvp.attendance === 'Yes');
             case 'Maybe':
-                filtered = this.rsvps.filter(rsvp => rsvp.attendance === 'Maybe');
-                break;
+                return this.rsvps.filter(rsvp => rsvp.attendance === 'Maybe');
             case 'No':
-                filtered = this.rsvps.filter(rsvp => rsvp.attendance === 'No');
-                break;
+                return this.rsvps.filter(rsvp => rsvp.attendance === 'No');
             case 'Not Responded':
-                filtered = this.rsvps.filter(rsvp => !rsvp.attendance || rsvp.attendance.trim() === '');
-                break;
+                return this.rsvps.filter(rsvp => !rsvp.attendance || rsvp.attendance.trim() === '');
             case 'Everyone':
             default:
-                filtered = [...this.rsvps];
-                break;
+                return [...this.rsvps];
         }
-        
-        // Sort by name alphabetically
-        return filtered.sort((a, b) => {
-            const nameA = (a.name || '').toLowerCase();
-            const nameB = (b.name || '').toLowerCase();
-            return nameA.localeCompare(nameB);
-        });
     }
 
     getAttendanceClass(attendance) {
@@ -664,38 +693,6 @@ class PumpkinfestRSVP {
         // Reset pumpkin patch checkbox to unchecked and hide dates
         document.getElementById('pumpkin-patch').checked = false;
         document.getElementById('patch-dates-container').style.display = 'none';
-    }
-
-    hideFormAndShowSuccess() {
-        // Hide the RSVP form
-        const rsvpForm = document.getElementById('rsvp-form');
-        const rsvpSection = rsvpForm.closest('.section');
-        
-        if (rsvpSection) {
-            rsvpSection.style.display = 'none';
-        } else {
-            rsvpForm.style.display = 'none';
-        }
-        
-        // Create and show success message
-        const successDiv = document.createElement('div');
-        successDiv.id = 'rsvp-success-message';
-        successDiv.className = 'success-message';
-        successDiv.innerHTML = `
-            <div class="success-content">
-                <h2>🎃 Thank You!</h2>
-                <p>Your RSVP has been submitted successfully!</p>
-                <p>We can't wait to see you at the annual pumpkin party!</p>
-                <button onclick="location.reload()" class="btn">Submit Another RSVP</button>
-            </div>
-        `;
-        
-        // Insert the success message where the form was
-        if (rsvpSection) {
-            rsvpSection.parentNode.insertBefore(successDiv, rsvpSection);
-        } else {
-            rsvpForm.parentNode.insertBefore(successDiv, rsvpForm);
-        }
     }
 
     showRSVPLoading(show) {
