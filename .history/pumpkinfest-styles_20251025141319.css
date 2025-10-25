@@ -120,53 +120,82 @@ body {
     margin-bottom: var(--spacing-xl);
 }
 
-/* Calendar Icons - Inline with Header */
-.event-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-md);
+/* Calendar Links */
+.calendar-links {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-sm);
+    margin: var(--spacing-md) 0;
 }
 
-.event-header h2 {
-    margin: 0;
-    flex: 1;
+.calendar-links p {
+    margin: 0 0 var(--spacing-xs) 0;
+    font-weight: 500;
+    color: var(--color-text);
+    font-size: 13px;
 }
 
-.calendar-icons {
+.calendar-buttons {
     display: flex;
     gap: var(--spacing-xs);
-    align-items: center;
+    flex-wrap: wrap;
 }
 
-.calendar-icon {
+.calendar-btn {
     display: inline-block;
-    width: 24px;
-    height: 24px;
-    text-align: center;
-    line-height: 24px;
+    padding: 4px 8px;
     border-radius: 4px;
     text-decoration: none;
-    font-size: 14px;
+    font-weight: 400;
+    font-size: 11px;
     transition: all 0.2s ease;
-    opacity: 0.7;
+    border: 1px solid;
 }
 
-.calendar-icon:hover {
-    opacity: 1;
-    transform: scale(1.1);
+.google-cal {
+    background: #4285f4;
+    color: white;
+    border-color: #4285f4;
+}
+
+.google-cal:hover {
+    background: #3367d6;
+    border-color: #3367d6;
+    transform: translateY(-1px);
+}
+
+.outlook-cal {
+    background: #0078d4;
+    color: white;
+    border-color: #0078d4;
+}
+
+.outlook-cal:hover {
+    background: #106ebe;
+    border-color: #106ebe;
+    transform: translateY(-1px);
+}
+
+.ics-cal {
+    background: var(--color-text-muted);
+    color: white;
+    border-color: var(--color-text-muted);
+}
+
+.ics-cal:hover {
+    background: #5a5a5a;
+    border-color: #5a5a5a;
+    transform: translateY(-1px);
 }
 
 @media (max-width: 768px) {
-    .event-header {
+    .calendar-buttons {
         flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-sm);
     }
     
-    .calendar-icons {
-        align-self: flex-end;
+    .calendar-btn {
+        text-align: center;
     }
 }
 
