@@ -608,8 +608,30 @@ class PumpkinfestRSVP {
                 break;
         }
         
-        // Sort by name alphabetically
+        // Sort first by attendance, then by name alphabetically
         return filtered.sort((a, b) => {
+            // Define attendance priority order (Yes first, then Maybe, then No, then empty/not responded)
+            const attendancePriority = {
+                'Yes': 1,
+                'Maybe': 2,
+                'No': 3,
+                '': 4, // Empty/not responded
+                null: 4,
+                undefined: 4
+            };
+            
+            const attendanceA = a.attendance || '';
+            const attendanceB = b.attendance || '';
+            
+            const priorityA = attendancePriority[attendanceA] || 4;
+            const priorityB = attendancePriority[attendanceB] || 4;
+            
+            // First sort by attendance priority
+            if (priorityA !== priorityB) {
+                return priorityA - priorityB;
+            }
+            
+            // If attendance is the same, sort by name alphabetically
             const nameA = (a.name || '').toLowerCase();
             const nameB = (b.name || '').toLowerCase();
             return nameA.localeCompare(nameB);
