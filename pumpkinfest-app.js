@@ -705,16 +705,44 @@ class PumpkinfestRSVP {
 
     showLoading(show) {
         const loading = document.getElementById('loading');
-        loading.style.display = show ? 'block' : 'none';
+        if (loading) {
+            loading.style.display = show ? 'block' : 'none';
+        }
+        // Since we removed the loading section, we can show loading state in the sync status instead
+        const syncStatus = document.getElementById('sync-status-text');
+        if (syncStatus && show) {
+            syncStatus.textContent = '🔄 Loading RSVPs...';
+            syncStatus.style.display = 'block';
+        } else if (syncStatus && !show) {
+            syncStatus.style.display = 'none';
+        }
     }
 
     showError(message) {
         const errorDiv = document.getElementById('error-message');
-        errorDiv.textContent = message;
-        errorDiv.style.display = 'block';
-        setTimeout(() => {
-            errorDiv.style.display = 'none';
-        }, 5000);
+        if (errorDiv) {
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        } else {
+            // Fallback: show error in sync status if error div doesn't exist
+            const syncStatus = document.getElementById('sync-status-text');
+            if (syncStatus) {
+                syncStatus.textContent = `❌ ${message}`;
+                syncStatus.style.display = 'block';
+                syncStatus.style.color = 'var(--color-error)';
+                setTimeout(() => {
+                    syncStatus.style.display = 'none';
+                    syncStatus.style.color = '';
+                }, 5000);
+            } else {
+                // Last resort: use alert
+                console.error('Error:', message);
+                alert(`Error: ${message}`);
+            }
+        }
     }
 
     updateSyncStatus(message) {
