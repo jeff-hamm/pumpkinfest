@@ -1,0 +1,86 @@
+# 🎃 Pumpkinfest 2025 RSVP System
+
+A Google Sheets + Apps Script powered RSVP system for your annual pumpkin party! Based on the proven architecture from your todo application.
+
+## 🚀 Quick Setup Guide
+
+### Step 1: Create Your Google Sheet
+1. Go to [Google Sheets](https://sheets.google.com)
+2. Create a new spreadsheet
+3. Name it "Pumpkinfest 2025 RSVPs" 
+4. Add these column headers in the first row:
+   - `Name` (Column A)
+   - `Attendance` (Column B) 
+   - `Need Pumpkin` (Column C)
+   - `Bringing` (Column D)
+   - `Timestamp` (Column E)
+
+### Step 2: Set Up Google Apps Script
+1. Open [Google Apps Script](https://script.google.com)
+2. Click **"New Project"**
+3. Delete the default code in `Code.gs`
+4. Copy the entire contents of `pumpkinfest-apps-script.js` and paste it in
+5. **GOOD NEWS**: Your Sheet ID is already configured as: `1XEfcdwvrg54w_Aw8bEiBC4_f8pLJOT6bH55sau92mvg`
+
+### Step 3: Deploy the Apps Script
+1. Click **Deploy** → **New deployment**
+2. Click the gear icon next to "Type" and select **Web app**
+3. Set these options:
+   - Execute as: **Me**
+   - Who has access: **Anyone**
+4. Click **Deploy**
+5. Copy the **Web app URL** (it will look like: `https://script.google.com/macros/s/ABC123.../exec`)
+
+### Step 4: Configure the Frontend
+1. Open `pumpkinfest-app.js`
+2. **GOOD NEWS**: Your Sheet ID is already configured!
+3. Just update line 12 with your Apps Script URL when you deploy it:
+   ```javascript
+   appsScriptUrl: 'YOUR_ACTUAL_APPS_SCRIPT_URL_HERE',
+   ```
+
+### Step 5: Update the HTML
+**GOOD NEWS**: The HTML is already configured with your sheet URL! No changes needed.
+
+## 🎯 Features
+
+- **Real-time RSVP collection** with Google Sheets backend
+- **Live RSVP display** showing who's coming, maybe coming, or can't make it
+- **Pumpkin needs tracking** - who needs a pumpkin purchased for them
+- **Notes/bringing section** for potluck coordination
+- **Responsive design** that works on mobile and desktop
+- **Offline fallback** with sample data when not connected
+- **Auto-refresh** to show new RSVPs as they come in
+
+## 📁 Files
+
+- `pumpkinfest-rsvp.html` - Main webpage with event description and RSVP form
+- `pumpkinfest-app.js` - JavaScript application logic
+- `pumpkinfest-styles.css` - Styling (pumpkin-themed dark mode)
+- `pumpkinfest-apps-script.js` - Google Apps Script backend code
+- `README.md` - This setup guide
+
+## 🎃 Using the System
+
+1. **Share the HTML file** with your friends (host it on a web server or GitHub Pages)
+2. **Guests fill out the RSVP form** with their name, attendance status, pumpkin needs, and what they're bringing
+3. **RSVPs automatically save** to your Google Sheet
+4. **Live updates** show on the page as people RSVP
+5. **Check your Google Sheet** for a full spreadsheet view of all responses
+
+## 🛠️ Testing
+
+Before sharing with guests:
+1. Open the HTML file in your browser
+2. Fill out a test RSVP
+3. Check that it appears in your Google Sheet
+4. Verify the live RSVP list updates on the page
+
+## 🎨 Customization
+
+- **Colors**: Update the CSS variables in `pumpkinfest-styles.css`
+- **Event details**: Edit the description in `pumpkinfest-rsvp.html`
+- **Form fields**: Modify the form in the HTML and update the Apps Script accordingly
+- **Sheet columns**: Add more columns to track additional info (dietary restrictions, etc.)
+
+Ready to get your gourd on! 🎃✨

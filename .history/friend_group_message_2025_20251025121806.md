@@ -1,0 +1,17 @@
+# *🎃 PUMPKINFEST 2025 - Thursday Oct 30th! 🎃*
+
+*Hey everyone! Time for my annual pumpkin party! 🎃*
+
+*October is SERIOUS pumpkin business, and this year we're celebrating all things orange and gourd-y! Plus, **BONUS EXCITEMENT** - both IXI and Natalie will be in town!! 🙌*
+
+## *Here's the deal:*
+
+- *🎃 Bring a pumpkin to carve!*
+- *🔪 Carving tools range from tiny plastic scrapers to "the most dangerous power tools we're legally allowed to use" 😉*
+- *🥧 Potluck style - bring pumpkin pie, pumpkin beer, cider, or whatever weird pumpkin concoction you can find*
+- *📸 We'll document the art/destruction and crown a winner!*
+- *🛡️ Plastic sheeting will protect us from the carnage*
+
+*Keeping it intimate as usual - you can probably bring a friend, but not several. Ask first!*
+
+***Who's in? React with a 🎃 if you're coming!***
