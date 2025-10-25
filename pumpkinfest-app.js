@@ -61,6 +61,14 @@ class PumpkinfestRSVP {
             tab.addEventListener('click', (e) => this.handleFilterChange(e));
         });
 
+        // Initialize name input state (hidden and not required by default)
+        const nameInput = document.getElementById('guest-name');
+        if (nameInput) {
+            nameInput.style.display = 'none';
+            nameInput.required = false;
+            nameInput.value = '';
+        }
+
         // Load initial data
         this.loadRSVPs();
         this.loadGalleryImages();
@@ -285,9 +293,16 @@ class PumpkinfestRSVP {
         let guestName = '';
         const nameSelect = formData.get('guestNameSelect');
         if (nameSelect === 'Other' || nameSelect === '') {
-            guestName = formData.get('guestName').trim();
+            guestName = formData.get('guestName')?.trim() || '';
         } else {
             guestName = nameSelect;
+        }
+
+        // Validate that we have a guest name
+        if (!guestName) {
+            this.showError('Please enter your name or select from the dropdown.');
+            this.showRSVPLoading(false);
+            return;
         }
 
         // Handle pumpkin patch dates - collect all checked values
@@ -336,7 +351,7 @@ class PumpkinfestRSVP {
                 this.updateSyncStatus('✅ RSVP Submitted');
                 this.showRSVPLoading(false);
                 this.resetForm();
-                alert('🎃 Thanks for your RSVP! See you at the party!');
+                this.hideFormAndShowSuccess();
             } else {
                 // Add locally for demo
                 // Check if this is an update to existing RSVP
@@ -357,6 +372,7 @@ class PumpkinfestRSVP {
                 this.updateSyncStatus('✅ RSVP Added Locally');
                 this.showRSVPLoading(false);
                 this.resetForm();
+                this.hideFormAndShowSuccess();
                 
                 setTimeout(() => {
                     const sheetUrl = `https://docs.google.com/spreadsheets/d/${this.sheetId}/edit#gid=${this.gid}`;
@@ -495,17 +511,22 @@ class PumpkinfestRSVP {
         const selectedValue = event.target.value;
         
         if (selectedValue === 'Other') {
-            // Show text input for new name
+            // Show text input for new name and make it required
             nameInput.style.display = 'block';
+            nameInput.required = true;
             nameInput.focus();
             this.clearForm();
         } else if (selectedValue && selectedValue !== '') {
-            // Hide text input and populate form with existing data
+            // Hide text input, remove required, and populate form with existing data
             nameInput.style.display = 'none';
+            nameInput.required = false;
+            nameInput.value = ''; // Clear the hidden input
             this.populateFormWithExistingData(selectedValue);
         } else {
-            // Default selection - hide text input and clear form
+            // Default selection - hide text input, remove required, and clear form
             nameInput.style.display = 'none';
+            nameInput.required = false;
+            nameInput.value = ''; // Clear the hidden input
             this.clearForm();
         }
     }
@@ -681,6 +702,38 @@ class PumpkinfestRSVP {
         // Reset pumpkin patch checkbox to unchecked and hide dates
         document.getElementById('pumpkin-patch').checked = false;
         document.getElementById('patch-dates-container').style.display = 'none';
+    }
+
+    hideFormAndShowSuccess() {
+        // Hide the RSVP form
+        const rsvpForm = document.getElementById('rsvp-form');
+        const rsvpSection = rsvpForm.closest('.section');
+        
+        if (rsvpSection) {
+            rsvpSection.style.display = 'none';
+        } else {
+            rsvpForm.style.display = 'none';
+        }
+        
+        // Create and show success message
+        const successDiv = document.createElement('div');
+        successDiv.id = 'rsvp-success-message';
+        successDiv.className = 'success-message';
+        successDiv.innerHTML = `
+            <div class="success-content">
+                <h2>🎃 Thank You!</h2>
+                <p>Your RSVP has been submitted successfully!</p>
+                <p>We can't wait to see you at the annual pumpkin party!</p>
+                <button onclick="location.reload()" class="btn">Submit Another RSVP</button>
+            </div>
+        `;
+        
+        // Insert the success message where the form was
+        if (rsvpSection) {
+            rsvpSection.parentNode.insertBefore(successDiv, rsvpSection);
+        } else {
+            rsvpForm.parentNode.insertBefore(successDiv, rsvpForm);
+        }
     }
 
     showRSVPLoading(show) {

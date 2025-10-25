@@ -750,6 +750,44 @@ body {
     text-align: center;
 }
 
+/* Success Message */
+.success-message {
+    background: linear-gradient(135deg, var(--color-success), #2ea043);
+    color: white;
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius);
+    margin: var(--spacing-lg) 0;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid #238636;
+}
+
+.success-content h2 {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-md);
+    color: white;
+}
+
+.success-content p {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-sm);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.success-content .btn {
+    margin-top: var(--spacing-lg);
+    background: white;
+    color: var(--color-success);
+    border: none;
+    font-weight: 600;
+}
+
+.success-content .btn:hover {
+    background: var(--color-text);
+    color: var(--color-success);
+    transform: translateY(-1px);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
