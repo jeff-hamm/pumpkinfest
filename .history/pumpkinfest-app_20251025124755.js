@@ -1,7 +1,6 @@
 /**
- * Pumpkinfest 2025 RSVP System - v2025-10-25-2
+ * Pumpkinfest 2025 RSVP System
  * Based on the Google Sheets Checklist architecture
- * Cache-busting update to fix browser caching issues
  */
 
 class PumpkinfestRSVP {
