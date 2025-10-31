@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUMPKINFEST 2025 RSVP</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎃</text></svg>">
+    <link rel="stylesheet" href="pumpkinfest-styles.css?v=1.7">
+</head>
+<body>
+    <div id="sync-status" class="sync-status">
+        <a href="https://docs.google.com/spreadsheets/d/1XEfcdwvrg54w_Aw8bEiBC4_f8pLJOT6bH55sau92mvg/edit?usp=sharing" 
+            target="_blank" class="sheet-link">📝 View RSVPs in Google Sheets</a>
+        <div id="sync-status-text" class="sync-status-text" style="display: none;"></div>
+    </div>
+
+    <div class="container">
+        <h1>🎃 PUMPKINFEST 2025: The Annual Celebration! 🎃</h1>
+        
+        <div class="event-details">
+            <div class="event-header">
+                <h2>Thursday, October 30th, 2025 @ 6:00 PM!</h2>
+                <div class="calendar-icons">
+                    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pumpkinfest%202025%3A%20The%20Annual%20Celebration!&dates=20251031T010000Z/20251031T050000Z&details=Annual%20pumpkin%20party%20with%20carving%2C%20pumpkin%20beer%2C%20pie%2C%20and%20all%20things%20pumpkin!%20Bring%20a%20pumpkin%20to%20carve%20and%20something%20pumpkin-themed%20to%20share.%20Tools%20provided%20from%20plastic%20scrapers%20to%20power%20tools!&location=TBD%20-%20Check%20RSVP%20details" target="_blank" class="calendar-icon google-cal" title="Add to Google Calendar">
+                        📅
+                    </a>
+                    <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Pumpkinfest%202025%3A%20The%20Annual%20Celebration!&startdt=2025-10-30T18%3A00%3A00&enddt=2025-10-30T22%3A00%3A00&body=Annual%20pumpkin%20party%20with%20carving%2C%20pumpkin%20beer%2C%20pie%2C%20and%20all%20things%20pumpkin!%20Bring%20a%20pumpkin%20to%20carve%20and%20something%20pumpkin-themed%20to%20share.%20Tools%20provided%20from%20plastic%20scrapers%20to%20power%20tools!&location=TBD%20-%20Check%20RSVP%20details" target="_blank" class="calendar-icon outlook-cal" title="Add to Outlook">
+                        📧
+                    </a>
+                    <a href="data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0APRODID:-//Test//Test//EN%0ABEGIN:VEVENT%0AUID:pumpkinfest2025@example.com%0ADTSTAMP:20251025T120000Z%0ADTSTART:20251030T180000%0ADTEND:20251030T220000%0ASUMMARY:Pumpkinfest 2025: The Annual Celebration!%0ADESCRIPTION:Annual pumpkin party with carving, pumpkin beer, pie, and all things pumpkin! Bring a pumpkin to carve and something pumpkin-themed to share. Tools provided from plastic scrapers to power tools!%0ALOCATION:TBD - Check RSVP details%0AEND:VEVENT%0AEND:VCALENDAR" download="pumpkinfest-2025.ics" class="calendar-icon ics-cal" title="Download .ics file">
+                        💾
+                    </a>
+                </div>
+            </div>
+            
+            <p><strong>Annual pumpkin party with carving, pumpkin beer, pie, and all things pumpkin!</strong></p>
+            <p>Bring a pumpkin to carve and something pumpkin-themed to share. Tools provided from plastic scrapers to power tools!</p>
+        </div>
+
+        <div class="special-announcement">
+            <p><strong>NEW THIS YEAR:</strong> In addition to our usual pumpkin carving, we're exploring a group visit to a local pumpkin patch! Please let us know in your RSVP if you're interested and your availability for patch dates. And October is serious</p>
+        </div>
+        
+        <div class="rsvp-section">
+            <h2>🎃 RSVP:</h2>
+            
+            <div id="rsvp-loading" class="rsvp-loading-overlay" style="display: none;">
+                <div class="spinner"></div>
+                <div class="spinner-text">Submitting RSVP...</div>
+            </div>
+            
+            <form id="rsvp-form" class="rsvp-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="guest-name">Name *</label>
+                        <select id="guest-name-select" class="guest-name-select">
+                            <option value="">Select your name or choose "Custom"</option>
+                            <option value="custom">Custom (type your name below)</option>
+                        </select>
+                        <input type="text" id="guest-name" name="name" placeholder="Enter your name" class="guest-name-input" style="display: none;" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="guest-email">Email (optional)</label>
+                        <input type="email" id="guest-email" name="email" placeholder="your.email@example.com">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="attendance">Attendance *</label>
+                        <select id="attendance" name="attendance" required>
+                            <option value="">Please select...</option>
+                            <option value="Going">Going</option>
+                            <option value="Maybe">Maybe</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="need-pumpkin">Need a pumpkin?</label>
+                        <select id="need-pumpkin" name="needPumpkin">
+                            <option value="">Please select...</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="bringing">What are you bringing?</label>
+                    <textarea id="bringing" name="bringing" rows="2" placeholder="Pumpkin pie, cider, decorations, etc."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="pumpkin-patch" name="pumpkinPatch">
+                        <label for="pumpkin-patch">I'm interested in a pumpkin patch visit!</label>
+                    </div>
+                    
+                    <div id="patch-dates-group" class="patch-dates-group" style="display: none;">
+                        <label for="patch-dates">Available dates for pumpkin patch:</label>
+                        <textarea id="patch-dates" name="patchDates" rows="2" placeholder="e.g., Oct 26th afternoon, Oct 27th morning, weekends work best..."></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="pumpkin-photo">Share a pumpkin photo (optional):</label>
+                    <div class="photo-upload">
+                        <input type="file" id="pumpkin-photo" name="photo" accept="image/*" class="file-input">
+                        <div id="photo-preview" class="photo-preview" style="display: none;">
+                            <img id="preview-img" class="preview-image" alt="Photo preview">
+                            <button type="button" id="remove-photo" class="btn-remove">Remove</button>
+                        </div>
+                        <div class="file-info">JPG, PNG, or GIF. Max 10MB.</div>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">🎃 Submit RSVP</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="content-tabs-section" class="content-tabs-section">
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-tab="gallery">🎃 Gallery</button>
+                <button class="tab-btn" data-tab="guest-list">👥 Guest List</button>
+            </div>
+
+            <div id="gallery-tab" class="tab-content active">
+                <div class="gallery-section">
+                    <p class="gallery-description">Photos from previous years plus new uploads from guests!</p>
+                    <div class="gallery-loading" id="gallery-loading">
+                        <p>Loading gallery images... 🎃</p>
+                    </div>
+                    <div class="image-gallery" id="image-gallery">
+                        <!-- Images will be loaded dynamically from Google Drive -->
+                    </div>
+                    
+                    <div class="gallery-upload-section">
+                        <div class="gallery-upload">
+                            <input type="file" id="gallery-photo-upload" accept="image/*" class="file-input" style="display: none;">
+                            <button type="button" id="gallery-upload-btn" class="btn-upload">
+                                📸 Upload a Photo to Gallery
+                            </button>
+                            <div id="gallery-upload-preview" class="photo-preview" style="display: none;">
+                                <img id="gallery-preview-img" class="preview-image" alt="Photo preview">
+                                <div class="upload-actions">
+                                    <button type="button" id="gallery-upload-submit" class="btn-primary btn-small">Upload</button>
+                                    <button type="button" id="gallery-upload-cancel" class="btn-secondary btn-small">Cancel</button>
+                                </div>
+                            </div>
+                            <div class="file-info">Share your pumpkin photos with the group! JPG, PNG, or GIF. Max 10MB.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="guest-list-tab" class="tab-content">
+                <div id="rsvp-grid-section" class="rsvp-grid-section">
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="Everyone">Everyone</button>
+                        <button class="filter-tab" data-filter="Going">Going</button>
+                        <button class="filter-tab" data-filter="Maybe">Maybe</button>
+                        <button class="filter-tab" data-filter="No">No</button>
+                        <button class="filter-tab" data-filter="Not Responded">Not Responded</button>
+                    </div>
+
+                    <div class="rsvp-grid-container">
+                        <table id="rsvp-grid" class="rsvp-grid">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Attendance</th>
+                                    <th>Needs Pumpkin</th>
+                                    <th>Bringing</th>
+                                    <th>Patch Dates</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rsvp-grid-body">
+                                <!-- Grid rows will be dynamically loaded here -->
+                            </tbody>
+                        </table>
+                        <div id="no-rsvps-message" class="no-rsvps-message" style="display: none;">
+                            <p>🎃 No RSVPs match the current filter.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="pumpkinfest-app.js?v=2025-10-25-10"></script>
+</head>
+<body>
+    <div id="sync-status" class="sync-status">
+        <a href="https://docs.google.com/spreadsheets/d/1XEfcdwvrg54w_Aw8bEiBC4_f8pLJOT6bH55sau92mvg/edit?usp=sharing" 
+            target="_blank" class="sheet-link">📝 View RSVPs in Google Sheets</a>
+        <div id="sync-status-text" class="sync-status-text" style="display: none;"></div>
+    </div>
+
+    <div class="header-image">
+        <img src="image copy 2.png" alt="Pumpkin Party Vibes" class="header-img">
+    </div>
+
+    <div class="container">
+        <h1>🎃 PUMPKINFEST 2025: The Annual Celebration! 🎃</h1>
+        
+        <div class="event-details">
+            <div class="event-header">
+                <h2>Thursday, October 30th, 2025 @ 6:00 PM!</h2>
+                <div class="calendar-icons">
+                    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pumpkinfest%202025%3A%20The%20Annual%20Celebration!&dates=20251031T010000Z/20251031T050000Z&details=Annual%20pumpkin%20party%20with%20carving%2C%20pumpkin%20beer%2C%20pie%2C%20and%20all%20things%20pumpkin!%20Bring%20a%20pumpkin%20to%20carve%20and%20something%20pumpkin-themed%20to%20share.%20Tools%20provided%20from%20plastic%20scrapers%20to%20power%20tools!&location=TBD%20-%20Check%20RSVP%20details" target="_blank" class="calendar-icon google-cal" title="Add to Google Calendar">
+                        📅
+                    </a>
+                    <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Pumpkinfest%202025%3A%20The%20Annual%20Celebration!&startdt=2025-10-30T18%3A00%3A00&enddt=2025-10-30T22%3A00%3A00&body=Annual%20pumpkin%20party%20with%20carving%2C%20pumpkin%20beer%2C%20pie%2C%20and%20all%20things%20pumpkin!%20Bring%20a%20pumpkin%20to%20carve%20and%20something%20pumpkin-themed%20to%20share.%20Tools%20provided%20from%20plastic%20scrapers%20to%20power%20tools!&location=TBD%20-%20Check%20RSVP%20details" target="_blank" class="calendar-icon outlook-cal" title="Add to Outlook">
+                        📧
+                    </a>
+                    <a href="data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0APRODID:-//Test//Test//EN%0ABEGIN:VEVENT%0AUID:pumpkinfest2025@example.com%0ADTSTAMP:20251025T120000Z%0ADTSTART:20251030T180000%0ADTEND:20251030T220000%0ASUMMARY:Pumpkinfest 2025: The Annual Celebration!%0ADESCRIPTION:Annual pumpkin party with carving, pumpkin beer, pie, and all things pumpkin! Bring a pumpkin to carve and something pumpkin-themed to share. Tools provided from plastic scrapers to power tools!%0ALOCATION:TBD - Check RSVP details%0AEND:VEVENT%0AEND:VCALENDAR" download="pumpkinfest-2025.ics" class="calendar-icon ics-cal" title="Download .ics file">
+                        💾
+                    </a>
+                </div>
+            </div>
+            
+            <p>I love pumpkins. And October is serious pumpkin business. This year marks the return of my annual* pumpkin party! 🎃</p>
+            
+            <div class="special-announcement">
+                <strong>SPECIAL ANNOUNCEMENT:</strong> Both IXI and Natalie will be in town for this one!! 🌟
+            </div>
+            
+            <p>This is a celebration of all things pumpkin -- from pumpkin beer to pumpkin pie to pumpkin spice... everything you can imagine! We're gathering to share our love and passion for all things pumpkin in this beautiful season!</p>
+            
+            <div class="event-sections">
+                <div class="event-section">
+                    <h3>🎃 THE PLAN:</h3>
+                    <ul>
+                        <li>Bring a pumpkin to carve!</li>
+                        <li>We'll set up carving stations with plastic sheeting for maximum mess potential</li>
+                        <li>Tools range from little plastic scrapers to dremels, drivers, and saws �</li>
+                        <li>Photo documentation of all artistic achievements and beautiful destruction</li>
+                        <li>Share the joy and love of all things pumpkin with fellow pumpkin enthusiasts!</li>
+                    </ul>
+                </div>
+                
+                <div class="event-section">
+                    <h3>🥧 POTLUCK STYLE:</h3>
+                    <p>Bring pumpkin pie, pumpkin beer, cider, or whatever weird pumpkin concoction you can find! This is all about celebrating and loving all things pumpkin together. We could definitely use more pumpkin-carving implements too 🙂</p>
+                </div>
+                
+                <div class="event-section">
+                    <h3>👥 INTIMATE GATHERING:</h3>
+                    <p>Keeping this cozy - you're welcome to bring a friend, but not several. Please ask first!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="rsvp-section">
+            <h2>🎃 RSVP:</h2>
+            
+            <div id="rsvp-loading" class="rsvp-loading-overlay" style="display: none;">
+                <div class="spinner"></div>
+                <div class="spinner-text">Submitting RSVP...</div>
+            </div>
+            
+            <form id="rsvp-form" class="rsvp-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="guest-name-select">Name *</label>
+                        <select id="guest-name-select" name="guestNameSelect">
+                            <option value="">Select your name or choose "Other"...</option>
+                            <option value="Other">Other (add new person)</option>
+                        </select>
+                        <input type="text" id="guest-name" name="guestName" required placeholder="Enter your name..." style="display: none; margin-top: 8px;">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="guest-email">Email (optional)</label>
+                        <input type="email" id="guest-email" name="guestEmail" placeholder="your.email@example.com">
+                        <small class="field-hint">Optional - for updates or coordination</small>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="attendance">Can you make it? *</label>
+                        <select id="attendance" name="attendance" required>
+                            <option value="">Select...</option>
+                            <option value="Yes">🎃 Yes - I'll be there!</option>
+                            <option value="Maybe">🤔 Maybe - depends on my schedule</option>
+                            <option value="No">😞 No - can't make it</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="need-pumpkin">Need a pumpkin purchased for you?</label>
+                        <select id="need-pumpkin" name="needPumpkin">
+                            <option value="">Select...</option>
+                            <option value="Yes">Yes - please get me a pumpkin!</option>
+                            <option value="No">No - I'll bring my own</option>
+                            <option value="Maybe">Maybe - I'll let you know</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bringing">What are you bringing or what do you need?</label>
+                        <textarea id="bringing" name="bringing" rows="3" placeholder="e.g., 'Bringing pumpkin beer and carving tools' or 'Need a ride' or 'Bringing +1 (asked first!)'"></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="pumpkin-patch" name="pumpkinPatch">
+                            🎃 I wanna go to a pumpkin patch together!
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-row" id="patch-dates-container" style="display: none;">
+                    <div class="form-group">
+                        <label>Which days work for you? (Check all that apply)</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="patchDates" value="Sat 10/25">
+                                Saturday 10/25
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="patchDates" value="Sun 10/26">
+                                Sunday 10/26
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="patchDates" value="Mon 10/27">
+                                Monday 10/27
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="patchDates" value="Tues 10/28">
+                                Tuesday 10/28
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="patchDates" value="Wed 10/29">
+                                Wednesday 10/29
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pumpkin-photo">🎃 Share a pumpkin photo! (optional)</label>
+                        <input type="file" id="pumpkin-photo" name="pumpkinPhoto" accept="image/*" class="file-input">
+                        <div id="photo-preview" class="photo-preview" style="display: none;">
+                            <img id="preview-img" class="preview-image" alt="Photo preview">
+                            <button type="button" id="remove-photo" class="btn-remove">Remove</button>
+                        </div>
+                        <div class="file-info">JPG, PNG, or GIF. Max 10MB.</div>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">🎃 Submit RSVP</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="content-tabs-section" class="content-tabs-section">
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-tab="gallery">🎃 Gallery</button>
+                <button class="tab-btn" data-tab="guest-list">👥 Guest List</button>
+            </div>
+
+            <div id="gallery-tab" class="tab-content active">
+                <div class="gallery-section">
+                    <p class="gallery-description">Photos from previous years plus new uploads from guests!</p>
+                    <div class="gallery-loading" id="gallery-loading">
+                        <p>Loading gallery images... 🎃</p>
+                    </div>
+                    <div class="image-gallery" id="image-gallery">
+                        <!-- Images will be loaded dynamically from Google Drive -->
+                    </div>
+                    
+                    <div class="gallery-upload-section">
+                        <div class="gallery-upload">
+                            <input type="file" id="gallery-photo-upload" accept="image/*" class="file-input" style="display: none;">
+                            <button type="button" id="gallery-upload-btn" class="btn-upload">
+                                📸 Upload a Photo to Gallery
+                            </button>
+                            <div id="gallery-upload-preview" class="photo-preview" style="display: none;">
+                                <img id="gallery-preview-img" class="preview-image" alt="Photo preview">
+                                <div class="upload-actions">
+                                    <button type="button" id="gallery-upload-submit" class="btn-primary btn-small">Upload</button>
+                                    <button type="button" id="gallery-upload-cancel" class="btn-secondary btn-small">Cancel</button>
+                                </div>
+                            </div>
+                            <div class="file-info">Share your pumpkin photos with the group! JPG, PNG, or GIF. Max 10MB.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="guest-list-tab" class="tab-content">
+                <div id="rsvp-grid-section" class="rsvp-grid-section">
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="Everyone">Everyone</button>
+                        <button class="filter-tab" data-filter="Going">Going</button>
+                        <button class="filter-tab" data-filter="Maybe">Maybe</button>
+                        <button class="filter-tab" data-filter="No">No</button>
+                        <button class="filter-tab" data-filter="Not Responded">Not Responded</button>
+                    </div>
+
+                    <div class="rsvp-grid-container">
+                        <table id="rsvp-grid" class="rsvp-grid">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Attendance</th>
+                                    <th>Needs Pumpkin</th>
+                                    <th>Bringing</th>
+                                    <th>Patch Dates</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rsvp-grid-body">
+                                <!-- Grid rows will be dynamically loaded here -->
+                            </tbody>
+                        </table>
+                        <div id="no-rsvps-message" class="no-rsvps-message" style="display: none;">
+                            <p>🎃 No RSVPs match the current filter.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="pumpkinfest-app.js?v=2025-10-25-9"></script>
+</body>
+</html>

@@ -19,12 +19,11 @@
     </div>
 
     <div class="container">
-        <h1>🎃 PUMPKINFEST 2025! 🎃</h1>
+        <h1>🎃 PUMPKINFEST 2025: The Annual Celebration! 🎃</h1>
         
         <div class="event-details">
             <div class="event-header">
-                <h2>Thursday, October 30th, 2025</h2>
-                <h2>6:00PM - Midnight!</h2>
+                <h2>Thursday, October 30th, 2025 @ 6:00 PM!</h2>
                 <div class="calendar-icons">
                     <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pumpkinfest%202025%3A%20The%20Annual%20Celebration!&dates=20251031T010000Z/20251031T050000Z&details=Annual%20pumpkin%20party%20with%20carving%2C%20pumpkin%20beer%2C%20pie%2C%20and%20all%20things%20pumpkin!%20Bring%20a%20pumpkin%20to%20carve%20and%20something%20pumpkin-themed%20to%20share.%20Tools%20provided%20from%20plastic%20scrapers%20to%20power%20tools!&location=TBD%20-%20Check%20RSVP%20details" target="_blank" class="calendar-icon google-cal" title="Add to Google Calendar">
                         📅
@@ -184,62 +183,70 @@
             </form>
         </div>
 
-        <div id="rsvp-grid-section" class="rsvp-grid-section">
-            <h3>👥 Who's Coming:</h3>
-            
-            <div class="filter-tabs">
-                <button class="filter-tab active" data-filter="Everyone">Everyone</button>
-                <button class="filter-tab" data-filter="Going">Going</button>
-                <button class="filter-tab" data-filter="Maybe">Maybe</button>
-                <button class="filter-tab" data-filter="No">No</button>
-                <button class="filter-tab" data-filter="Not Responded">Not Responded</button>
+        <div id="content-tabs-section" class="content-tabs-section">
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-tab="gallery">🎃 Gallery</button>
+                <button class="tab-btn" data-tab="guest-list">👥 Guest List</button>
             </div>
 
-            <div class="rsvp-grid-container">
-                <table id="rsvp-grid" class="rsvp-grid">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Attendance</th>
-                            <th>Needs Pumpkin</th>
-                            <th>Bringing</th>
-                            <th>Patch Dates</th>
-                        </tr>
-                    </thead>
-                    <tbody id="rsvp-grid-body">
-                        <!-- Grid rows will be dynamically loaded here -->
-                    </tbody>
-                </table>
-                <div id="no-rsvps-message" class="no-rsvps-message" style="display: none;">
-                    <p>🎃 No RSVPs match the current filter.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="gallery-section">
-            <h3>🎃 Pumpkin Party Gallery:</h3>
-            <p class="gallery-description">Photos from previous years plus new uploads from guests!</p>
-            <div class="gallery-loading" id="gallery-loading">
-                <p>Loading gallery images... 🎃</p>
-            </div>
-            <div class="image-gallery" id="image-gallery">
-                <!-- Images will be loaded dynamically from Google Drive -->
-            </div>
-            
-            <div class="gallery-upload-section">
-                <div class="gallery-upload">
-                    <input type="file" id="gallery-photo-upload" accept="image/*" class="file-input" style="display: none;">
-                    <button type="button" id="gallery-upload-btn" class="btn-upload">
-                        📸 Upload a Photo to Gallery
-                    </button>
-                    <div id="gallery-upload-preview" class="photo-preview" style="display: none;">
-                        <img id="gallery-preview-img" class="preview-image" alt="Photo preview">
-                        <div class="upload-actions">
-                            <button type="button" id="gallery-upload-submit" class="btn-primary btn-small">Upload</button>
-                            <button type="button" id="gallery-upload-cancel" class="btn-secondary btn-small">Cancel</button>
+            <div id="gallery-tab" class="tab-content active">
+                <div class="gallery-section">
+                    <p class="gallery-description">Photos from previous years plus new uploads from guests!</p>
+                    <div class="gallery-loading" id="gallery-loading">
+                        <p>Loading gallery images... 🎃</p>
+                    </div>
+                    <div class="image-gallery" id="image-gallery">
+                        <!-- Images will be loaded dynamically from Google Drive -->
+                    </div>
+                    
+                    <div class="gallery-upload-section">
+                        <div class="gallery-upload">
+                            <input type="file" id="gallery-photo-upload" accept="image/*" class="file-input" style="display: none;">
+                            <button type="button" id="gallery-upload-btn" class="btn-upload">
+                                📸 Upload a Photo to Gallery
+                            </button>
+                            <div id="gallery-upload-preview" class="photo-preview" style="display: none;">
+                                <img id="gallery-preview-img" class="preview-image" alt="Photo preview">
+                                <div class="upload-actions">
+                                    <button type="button" id="gallery-upload-submit" class="btn-primary btn-small">Upload</button>
+                                    <button type="button" id="gallery-upload-cancel" class="btn-secondary btn-small">Cancel</button>
+                                </div>
+                            </div>
+                            <div class="file-info">Share your pumpkin photos with the group! JPG, PNG, or GIF. Max 10MB.</div>
                         </div>
                     </div>
-                    <div class="file-info">Share your pumpkin photos with the group! JPG, PNG, or GIF. Max 10MB.</div>
+                </div>
+            </div>
+
+            <div id="guest-list-tab" class="tab-content">
+                <div id="rsvp-grid-section" class="rsvp-grid-section">
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="Everyone">Everyone</button>
+                        <button class="filter-tab" data-filter="Going">Going</button>
+                        <button class="filter-tab" data-filter="Maybe">Maybe</button>
+                        <button class="filter-tab" data-filter="No">No</button>
+                        <button class="filter-tab" data-filter="Not Responded">Not Responded</button>
+                    </div>
+
+                    <div class="rsvp-grid-container">
+                        <table id="rsvp-grid" class="rsvp-grid">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Attendance</th>
+                                    <th>Needs Pumpkin</th>
+                                    <th>Bringing</th>
+                                    <th>Patch Dates</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rsvp-grid-body">
+                                <!-- Grid rows will be dynamically loaded here -->
+                            </tbody>
+                        </table>
+                        <div id="no-rsvps-message" class="no-rsvps-message" style="display: none;">
+                            <p>🎃 No RSVPs match the current filter.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
